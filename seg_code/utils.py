@@ -8,7 +8,7 @@ import torchvision
 import torch.utils.tensorboard as tb
 from torchvision import transforms, datasets, models
 from skimage.segmentation import find_boundaries as fb
-from . import special_transforms as SegT
+from .import special_transforms as SegT
 import numpy as np
 import csv
 import torch
@@ -16,8 +16,32 @@ import torch
 import os, subprocess
 
 # Mapping of classes to ignore (marked "0") and to keep (given nonzero number)
-mapping_20 = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 1, 8: 2, 9: 0, 10: 0, 11: 3, 12: 4, 13: 5, 14: 0, 15: 0, 16: 0,
-              17: 6,18: 0,19: 7,20: 8,21: 9,22: 10,23: 11,24: 12,25: 13,26: 14,27: 15,28: 16,29: 0,30: 0,31: 17,32: 18,33: 19,-1: 0}
+mapping_20 = {
+    0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 
+    7: 1,    # road
+    8: 2,    # sidewalk
+    9: 0, 10: 0, 
+    11: 3,   # building
+    12: 3,   # wall → building
+    13: 3,   # fence → building
+    14: 0, 15: 0, 16: 0, 
+    17: 0,   # pole → building
+    18: 0, 19: 0,   # traffic light
+    20: 0,   # traffic sign
+    21: 4,   # vegetation
+    22: 0,   # terrain
+    23: 5,   # sky
+    24: 6,   # person
+    25: 6,   # rider → person
+    26: 7,  # car
+    27: 7,  # truck → car
+    28: 7,  # bus → car
+    29: 0, 30: 0, 
+    31: 7,  # train → car
+    32: 7,  # motorcycle → car
+    33: 7,  # bicycle → car
+    -1: 0
+}
 
 def encode_labels(mask):
     label_mask = np.zeros_like(mask)
@@ -32,18 +56,31 @@ ALL_LABEL_NAMES = ['unlabeled', 'ego vehicle', 'rectification border', 'out of r
                      'caravan', 'trailer', 'train','motorcycle','bicycle']
 
 #### change to different name
-SELECT_LABEL_NAMES = ['unlabelled', 'road', 'sidewalk', 'building', 'wall', 'fence', 
-                     'pole', 'traffic light','traffic sign', 'vegetation', 'terrain','sky','person','rider','car','truck','bus',
-                     'train','motorcycle','bicycle']
-
-N_CLASSES = len(SELECT_LABEL_NAMES)
+SELECT_LABEL_NAMES = [
+    'unlabelled', 
+    'road', 
+    'sidewalk', 
+    'building', 
+    'vegetation', 
+    'sky', 
+    'person', 
+    'car'  # Merged: car, truck, bus, train, motorcycle, bicycle
+]
+N_CLASSES = len(SELECT_LABEL_NAMES)  # Now 11
 
 #print("Number of classes", N_CLASSES)
 
 ### Weights for Focal loss
-FOCAL_LOSS_WEIGHTS = [0.0, 0.1825, 0.0525, 0.0525, 0.0525, 0.0525, 0.025, 0.01, 0.01, 0.025, 0.0525, 0.1, 
-                            0.0525, 0.0525, 0.08, 0.04, 0.04, 0.04, 0.04, 0.04]
-
+FOCAL_LOSS_WEIGHTS = [
+    0.0,      # unlabeled
+    0.1825,   # road
+    0.0525,   # sidewalk
+    0.0525,   # building
+    0.025,    # vegetation
+    0.01,     # sky
+    0.0525,   # person
+    0.0525    # car
+]
 class CityDataset(Dataset):
     def __init__(self, dataset_path, transform = SegT.Compose([ SegT.Resize((128, 128)), SegT.ToTensor() ]) ): 
         ## The original images are way too big for my GPU to handle...so I transform both the train and valid data
@@ -148,6 +185,19 @@ class ConfusionMatrix(object):
     @property
     def per_class(self):
         return self.matrix / (self.matrix.sum(1, keepdims=True) + 1e-5)
+    @property
+    def class_iou(self):
+        true_pos = self.matrix.diagonal()
+        return true_pos / (self.matrix.sum(0) + self.matrix.sum(1) - true_pos + 1e-5)
+    
+    @property
+    def iou(self):
+        return self.class_iou.mean()
+    
+    @property
+    def frequency_weighted_iou(self):
+        freq = self.matrix.sum(1) / (self.matrix.sum() + 1e-5)
+        return (freq * self.class_iou).sum()
 
     
 ###################################################################################################################
