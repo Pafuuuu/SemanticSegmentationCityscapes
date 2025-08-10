@@ -33,7 +33,7 @@ While the detection for smaller objects such as viechle and human are consistent
 ## Modifications
 
 ### resolution adjustment:
-Simply increase resolution from 128*128 to 256*256 would result in 25% increase in global accuracy (0.4 to 0.5)
+Simply increase resolution from 128 * 128 to 256 * 256 would result in 25% increase in global accuracy (0.4 to 0.5)
 
 Yet due to computation limitation 256 resolution is the highest our laptop could handle
 
@@ -48,6 +48,9 @@ Result shows that increasing weight would lead to better viechle/person detectio
 We employed color jitter, gray scale, horizontal flip and random corp in the hope to increase model's robustness in dealing with different color and textures.
 
 Though no significant improvements were shown in ordinary cases, we do find data augmentation useful for peculiar cases. For example, model with augmentation showed better performance in inverted and black-and-white images compared to the baseline model. 
+
+**Please feel free to check on my presentation slides for more info and results!
+
 
 
 
