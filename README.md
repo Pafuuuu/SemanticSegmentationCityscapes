@@ -5,7 +5,7 @@
 The motivation for this project is to test the possibility of CNN image segmentation using an ordinary laptop with 8GB visual memory and explore methods to increase model accuracy and efficiency within this limitation. 
 
 ## baseline model
-I choose the standard UNet and the baseline model using the setup from [kerrgarr](https://github.com/kerrgarr/SemanticSegmentationCityscapes)
+I choose the standard UNet as the baseline model using the setup from [kerrgarr](https://github.com/kerrgarr/SemanticSegmentationCityscapes)
 
 ## dataset
 **Cityscapes: Semantic Understanding of Urban Street Scenes.** https://www.cityscapes-dataset.com/downloads
@@ -52,6 +52,7 @@ Though no significant improvements were shown in ordinary cases, we do find data
 ### Please feel free to check on my presentation slides for more info and results!
 
 [Presentation Slides](https://github.com/Pafuuuu/SemanticSegmentationCityscapes/blob/main/Psych186B_Presentation%20.pdf)
+
 
 
 
