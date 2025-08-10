@@ -9,9 +9,18 @@ I choose the standard UNet and the baseline model using the setup from kerrgarr 
 
 ## dataset
 **Cityscapes: Semantic Understanding of Urban Street Scenes.** https://www.cityscapes-dataset.com/downloads
-the dataset contains annotated cityscape dataset in Germany with various weather conditions.
+
+The dataset contains fine annotated daytime cityscape dataset in Germany with various weather conditions.
+
+Annotated features were classified into 8 groups (human, viechle, construction etc.)
+
+## Evaluation Criteria 
+We choose Intersaction Over Union (IoU) as the measurement of accuracy. Based on the state of art performance, we choose IoU > 0.5 as the acceptance threshold. That is, if IoU > 0.5, we consider the model accurately identifies the object.
+
+<img width="589" height="417" alt="image" src="https://github.com/user-attachments/assets/ad132bf3-0f7f-4fe2-8529-0d16f3f4f3f4" />
 
 ___________________________________
+## results
 
 
 
@@ -93,5 +102,6 @@ jfzhang95. (2018). PyTorch DeepLab-XCeption. GitHub. https://github.com/jfzhang9
 milesial. (2021). Pytorch-Unet. Github. https://github.com/milesial/Pytorch-UNet
 
 Sai Ajay Daliparthi, V. S. (2021a). The Ikshana Hypothesis of Human Scene Understanding. Github. https://github.com/dvssajay/The-Ikshana-Hypothesis-of-Human-Scene-Understanding
+
 
 
