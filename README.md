@@ -14,6 +14,9 @@ The dataset contains fine annotated daytime cityscape dataset in Germany with va
 
 Annotated features were classified into 8 groups (human, viechle, construction etc.)
 
+<img width="547" height="280" alt="image" src="https://github.com/user-attachments/assets/99638975-8024-42e4-aaaa-f185b1aedc26" />
+
+
 ## Evaluation Criteria 
 We choose Intersaction Over Union (IoU) as the measurement of accuracy. Based on the state of art performance, we choose IoU > 0.5 as the acceptance threshold. That is, if IoU > 0.5, we consider the model accurately identifies the object.
 
@@ -21,7 +24,10 @@ We choose Intersaction Over Union (IoU) as the measurement of accuracy. Based on
 
 ___________________________________
 ## results
+The baseline model shows good performance on background detection (e.g. sky, road, trees)
 
+While the detection for smaller objects such as viechle and human are consistently challenging
+<img width="1095" height="792" alt="image" src="https://github.com/user-attachments/assets/59978d11-442d-4699-af51-7464d3f85caf" />
 
 
 ## Logging on TensorBoard
@@ -102,6 +108,7 @@ jfzhang95. (2018). PyTorch DeepLab-XCeption. GitHub. https://github.com/jfzhang9
 milesial. (2021). Pytorch-Unet. Github. https://github.com/milesial/Pytorch-UNet
 
 Sai Ajay Daliparthi, V. S. (2021a). The Ikshana Hypothesis of Human Scene Understanding. Github. https://github.com/dvssajay/The-Ikshana-Hypothesis-of-Human-Scene-Understanding
+
 
 
 
