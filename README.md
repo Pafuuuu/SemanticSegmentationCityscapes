@@ -5,7 +5,7 @@
 The motivation for this project is to test the possibility of CNN image segmentation using an ordinary laptop with 8GB visual memory and explore methods to increase model accuracy and efficiency within this limitation. 
 
 ## baseline model
-I choose the standard UNet and the baseline model using the setup from kerrgarr : https://github.com/kerrgarr/SemanticSegmentationCityscapes
+I choose the standard UNet and the baseline model using the setup from [kerrgarr](https://github.com/kerrgarr/SemanticSegmentationCityscapes)
 
 ## dataset
 **Cityscapes: Semantic Understanding of Urban Street Scenes.** https://www.cityscapes-dataset.com/downloads
@@ -50,7 +50,9 @@ We employed color jitter, gray scale, horizontal flip and random corp in the hop
 Though no significant improvements were shown in ordinary cases, we do find data augmentation useful for peculiar cases. For example, model with augmentation showed better performance in inverted and black-and-white images compared to the baseline model. 
 
 *Please feel free to check on my presentation slides for more info and results!
-Psych186B_Presentation .pdf
+
+[Presentation Slides](https://github.com/Pafuuuu/SemanticSegmentationCityscapes/blob/main/Psych186B_Presentation%20.pdf)
+
 
 
 
