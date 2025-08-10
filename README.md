@@ -49,9 +49,10 @@ We employed color jitter, gray scale, horizontal flip and random corp in the hop
 
 Though no significant improvements were shown in ordinary cases, we do find data augmentation useful for peculiar cases. For example, model with augmentation showed better performance in inverted and black-and-white images compared to the baseline model. 
 
-*Please feel free to check on my presentation slides for more info and results!
+* Please feel free to check on my presentation slides for more info and results!
 
 [Presentation Slides](https://github.com/Pafuuuu/SemanticSegmentationCityscapes/blob/main/Psych186B_Presentation%20.pdf)
+
 
 
 
